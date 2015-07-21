@@ -1,0 +1,33 @@
+﻿@model YearPercet.Web.Models.YearPercentViewModel
+
+@{ ViewBag.Title = string.Format("{0} %", Model.YearPercent); }
+
+<div class="row">
+    <div class="col-md-4">
+        <h1>@Model.YearPercent %</h1>
+        <div id="chart_div"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Tense');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['Past', @Model.YearPercent.ToString().Replace(',', '.')],
+            ['Future', @((100 - Model.YearPercent).ToString().Replace(',', '.'))]
+        ]);
+
+        // Set chart options
+        var options = { 'legend': 'none', 'pieSliceText': 'none', 'width': '500', 'height': '500' };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    google.setOnLoadCallback(drawChart);
+</script>
