@@ -3,9 +3,11 @@
 @{ ViewBag.Title = string.Format("{0} %", Model.YearPercent); }
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <h1>@Model.YearPercent %</h1>
-        <canvas id="yearPercentChart"></canvas>
+    </div>
+    <div class="col-md-12">
+        <canvas id="yearPercentChart" width="1200" height="1200"></canvas>
     </div>
 </div>
 
@@ -25,7 +27,7 @@
             label: "Future"
         }
     ];
-    
+
     var ctx = document.getElementById("yearPercentChart").getContext("2d");
     var myPieChart = new Chart(ctx).Pie(data);
 </script>
